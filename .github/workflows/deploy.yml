@@ -2,14 +2,14 @@ name: Deploy Frontend to S3 and CloudFront
 on:
   push:
     branches:
-      - main  # This triggers the deploy whenever you push to the main branch
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4 # Updated to v4 to avoid deprecation warnings
 
       - name: Install dependencies
         run: npm install
@@ -18,15 +18,15 @@ jobs:
         run: npm run build
 
       - name: Deploy to S3
-        run: aws s3 sync build/ s3://${{ secrets.S3_BUCKET }} --delete
+        # Use 'dist/' if you use Vite, or 'build/' if you use Create-React-App
+        run: aws s3 sync dist/ s3://${{ secrets.S3_BUCKET }} --delete
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
 
-      # --- THIS IS STEP 7 ---
       - name: Invalidate CloudFront Cache
-        run: aws cloudfront create-invalidation --distribution-id YOUR_DISTRIBUTION_ID --paths "/*"
+        run: aws cloudfront create-invalidation --distribution-id EDOQAOJN827SF --paths "/*"
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
