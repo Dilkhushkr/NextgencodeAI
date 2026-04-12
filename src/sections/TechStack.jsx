@@ -45,7 +45,7 @@ function TechCard({ tech, index }) {
   );
 }
 
-function TechStack() {
+function  TechStack() {
   const [activeCategory, setActiveCategory] = useState("All");
 
   const filtered = activeCategory === "All"
