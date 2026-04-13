@@ -84,7 +84,7 @@ function Navbar() {
             <a
               href="#contact"
               onClick={(e) => handleNavClick(e, "#contact")}
-              className="btn-primary text-sm"
+              className="btn-pink text-sm"
             >
               Hire Me →
             </a>
