@@ -80,7 +80,7 @@ function Navbar() {
           </div>
 
           {/* CTA */}
-          <div className="hidden md:block">
+          <div className="hidden md:block bg-yellow-500 rounded-lg px-4 py-2">
             <a
               href="#contact"
               onClick={(e) => handleNavClick(e, "#contact")}
